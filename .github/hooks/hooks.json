@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "node scripts/hooks/protect-env.mjs --copilot",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "powershell": "node scripts/hooks/protect-env.mjs --copilot"
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "node scripts/hooks/format-file.mjs",
+        "cwd": ".",
+        "timeoutSec": 30,
+        "powershell": "node scripts/hooks/format-file.mjs"
+      }
+    ],
+    "userPromptSubmitted": [
+      {
+        "type": "command",
+        "bash": "node scripts/hooks/log-prompt.mjs copilot",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "powershell": "node scripts/hooks/log-prompt.mjs copilot"
+      }
+    ]
+  }
+}

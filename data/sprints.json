@@ -1,0 +1,86 @@
+{
+  "team": "Roomly",
+  "sprintLengthDays": 14,
+  "sprints": [
+    {
+      "number": 1,
+      "start": "2026-07-06",
+      "committed": 34,
+      "completed": 21,
+      "bugsOpened": 3,
+      "bugsClosed": 1,
+      "teamSize": 5,
+      "goal": "First booking flow end to end"
+    },
+    {
+      "number": 2,
+      "start": "2026-07-20",
+      "committed": 30,
+      "completed": 24,
+      "bugsOpened": 5,
+      "bugsClosed": 3,
+      "teamSize": 5,
+      "goal": "Room list and capacity"
+    },
+    {
+      "number": 3,
+      "start": "2026-08-03",
+      "committed": 28,
+      "completed": 18,
+      "bugsOpened": 2,
+      "bugsClosed": 4,
+      "teamSize": 4,
+      "goal": "Cancel bookings (summer holidays)"
+    },
+    {
+      "number": 4,
+      "start": "2026-08-17",
+      "committed": 30,
+      "completed": 27,
+      "bugsOpened": 4,
+      "bugsClosed": 4,
+      "teamSize": 5,
+      "goal": "Day timeline view"
+    },
+    {
+      "number": 5,
+      "start": "2026-08-31",
+      "committed": 32,
+      "completed": 29,
+      "bugsOpened": 6,
+      "bugsClosed": 3,
+      "teamSize": 5,
+      "goal": "Dark mode and accessibility pass"
+    },
+    {
+      "number": 6,
+      "start": "2026-09-14",
+      "committed": 32,
+      "completed": 31,
+      "bugsOpened": 7,
+      "bugsClosed": 2,
+      "teamSize": 5,
+      "goal": "Validation and error messages"
+    },
+    {
+      "number": 7,
+      "start": "2026-09-28",
+      "committed": 36,
+      "completed": 30,
+      "bugsOpened": 8,
+      "bugsClosed": 3,
+      "teamSize": 6,
+      "goal": "Calendar integration spike"
+    },
+    {
+      "number": 8,
+      "start": "2026-10-12",
+      "committed": 34,
+      "completed": 26,
+      "bugsOpened": 9,
+      "bugsClosed": 4,
+      "teamSize": 6,
+      "goal": "Recurring bookings (descoped)"
+    }
+  ]
+}

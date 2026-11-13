@@ -1,0 +1,5 @@
+node_modules
+dist
+.ai-logs
+# NOTE: .env is committed on purpose in this demo repo (fake values) so the
+# "protect secrets" hook has something to protect. Never do this in a real project.

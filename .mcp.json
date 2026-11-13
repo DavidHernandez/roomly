@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "sprint-metrics": {
+      "command": "npx",
+      "args": ["tsx", "mcp-sprint-metrics/src/index.ts"]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": { "Authorization": "Bearer ${GITHUB_PAT}" }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
