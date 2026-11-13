@@ -5,7 +5,7 @@ import { formatTime } from '../time';
 import type { Booking, Room } from '../types';
 
 const props = defineProps<{ rooms: Room[]; bookings: Booking[] }>();
-const emit = defineEmits<{ cancelled: [index: number] }>();
+const emit = defineEmits<{ cancelled: [id: string] }>();
 
 const roomFilter = ref('all');
 
@@ -19,9 +19,17 @@ function roomName(id: string): string {
   return props.rooms.find((r) => r.id === id)?.name ?? id;
 }
 
-async function cancel(booking: Booking, index: number): Promise<void> {
-  await api.cancelBooking(booking.id);
-  emit('cancelled', index);
+const cancelError = ref('');
+
+// Use the booking id, not its position: positions differ when the list is filtered.
+async function cancel(booking: Booking): Promise<void> {
+  try {
+    await api.cancelBooking(booking.id);
+    cancelError.value = '';
+    emit('cancelled', booking.id);
+  } catch (e) {
+    cancelError.value = `Couldn't cancel "${booking.title}": ${(e as Error).message}`;
+  }
 }
 </script>
 
@@ -34,10 +42,12 @@ async function cancel(booking: Booking, index: number): Promise<void> {
     </select>
   </label>
 
+  <p v-if="cancelError" class="error" role="alert">{{ cancelError }}</p>
+
   <p v-if="visible.length === 0" class="empty">No bookings yet. Use the form to book a room.</p>
 
   <ul v-else class="list">
-    <li v-for="(b, index) in visible" :key="b.id">
+    <li v-for="b in visible" :key="b.id">
       <div>
         <strong>{{ b.title }}</strong>
         <span
@@ -45,7 +55,7 @@ async function cancel(booking: Booking, index: number): Promise<void> {
           {{ b.organizer }}</span
         >
       </div>
-      <button type="button" @click="cancel(b, index)">Cancel booking</button>
+      <button type="button" @click="cancel(b)">Cancel booking</button>
     </li>
   </ul>
 </template>
@@ -82,5 +92,8 @@ async function cancel(booking: Booking, index: number): Promise<void> {
 }
 .empty {
   color: var(--muted);
+}
+.error {
+  color: var(--danger);
 }
 </style>

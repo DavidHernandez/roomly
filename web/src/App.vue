@@ -24,8 +24,8 @@ function onCreated(booking: Booking): void {
   bookings.value.sort((a, b) => a.start.localeCompare(b.start));
 }
 
-function onCancelled(index: number): void {
-  bookings.value.splice(index, 1);
+function onCancelled(id: string): void {
+  bookings.value = bookings.value.filter((b) => b.id !== id);
 }
 
 onMounted(load);
