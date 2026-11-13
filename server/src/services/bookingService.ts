@@ -15,8 +15,10 @@ export function listBookings(date?: string): Booking[] {
  */
 export function findConflict(roomId: string, start: string, end: string): Booking | undefined {
   const newStart = toMs(start);
+  const newEnd = toMs(end);
+  // Two ranges overlap when each starts before the other ends. Back-to-back is not an overlap.
   return bookings.find(
-    (b) => b.roomId === roomId && newStart >= toMs(b.start) && newStart < toMs(b.end),
+    (b) => b.roomId === roomId && newStart < toMs(b.end) && newEnd > toMs(b.start),
   );
 }
 
@@ -28,8 +30,11 @@ export function createBooking(input: NewBooking): Booking {
     throw new HttpError(400, 'End time must be after start time');
   }
 
-  if (input.attendees >= room.capacity) {
-    throw new HttpError(400, `${room.name} fits ${room.capacity} people`);
+  if (input.attendees > room.capacity) {
+    throw new HttpError(
+      400,
+      `${room.name} fits ${room.capacity} people. Choose a bigger room or invite fewer people.`,
+    );
   }
 
   const conflict = findConflict(input.roomId, input.start, input.end);
