@@ -24,11 +24,10 @@ label bug d73a4a
 label needs-refinement fbca04
 
 issue() { # title, comma-separated labels, body -> prints issue number
-  local args=(-f title="$1" -f body="$3")
-  local l
-  IFS=',' read -ra labels <<<"$2"
-  for l in "${labels[@]}"; do args+=(-f "labels[]=$l"); done
-  gh api "repos/$repo/issues" "${args[@]}" --jq .number
+  # Build the JSON with node (already required by the repo) so labels are sent as a real array.
+  node -e 'const [t, l, b] = process.argv.slice(1);
+    process.stdout.write(JSON.stringify({ title: t, body: b, labels: l.split(",") }));' "$1" "$2" "$3" |
+    gh api "repos/$repo/issues" --input - --jq .number
 }
 
 # --- Open stories: one good, some vague (PM exercise material) ---
