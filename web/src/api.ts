@@ -14,6 +14,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   rooms: () => request<Room[]>('/api/rooms'),
+  availableRooms: (start: string, end: string, attendees: number) =>
+    request<Room[]>(
+      `/api/rooms/available?${new URLSearchParams({ start, end, attendees: String(attendees) })}`,
+    ),
   bookings: (date: string) => request<Booking[]>(`/api/bookings?date=${date}`),
   createBooking: (b: NewBooking) =>
     request<Booking>('/api/bookings', { method: 'POST', body: JSON.stringify(b) }),
